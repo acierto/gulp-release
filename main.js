@@ -19,11 +19,15 @@ module.exports = function (gulp) {
         rootDir = rootDir + '/';
     }
 
+    var readPackageVersion = function(filePath) {
+        return JSON.parse(fs.readFileSync(filePath, 'utf8')).version;
+    };
+
     var commitIt = function (file, enc, cb) {
         if (file.isNull()) return cb(null, file);
         if (file.isStream()) return cb(new Error('Streaming not supported'));
 
-        var commitMessage = "Bumps version to " + require(file.path).version;
+        var commitMessage = "Bumps version to " + readPackageVersion(file.path);
         gulp.src('./*.json', {cwd: rootDir}).pipe(git.commit(commitMessage, {cwd: rootDir}));
     };
 
