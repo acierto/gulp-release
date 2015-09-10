@@ -1,9 +1,9 @@
 {
   "name": "gulp-release-it",
-  "description": "Gulp plugin for automating release steps of your node lib or bower component and optional publishing to NPM",
+  "description": "Gulp plugin for automating release steps of your node lib or bower component and publishing to NPM",
   "author": "Bogdan Nechyporenko",
   "repository": "git@github.com:acierto/gulp-release.git",
-  "version": "2.0.0",
+  "version": "1.0.1",
   "main": "main.js",
   "dependencies": {
     "gulp-bump": "0.3.1",
