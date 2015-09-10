@@ -10,6 +10,7 @@ npm-debug.log
 *.swo
 *~
 
+.idea/
 bin/
 doc/
 node_modules
