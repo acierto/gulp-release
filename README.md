@@ -25,13 +25,21 @@ require('gulp-release-it')(gulp);
 
 ```gulp release --rootDir=/path/to/project```
 
-## Different ways to bump the version
+## Different ways to bump the version after release
 
 command              | version
 ---------------------|-----------------
 gulp release         | v0.0.1 -> v0.0.2 
 gulp release --minor | v0.0.1 -> v0.1.0 
 gulp release --major | v0.0.1 -> v1.0.1
+
+### If you want only to bump the version
+
+command              | version
+---------------------|-----------------
+gulp bump            | v0.0.1 -> v0.0.2 
+gulp bump --minor    | v0.0.1 -> v0.1.0 
+gulp bump --major    | v0.0.1 -> v1.0.1
  
 ## How to release from different branch
  
