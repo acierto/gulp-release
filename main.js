@@ -2,6 +2,7 @@ module.exports = function (gulp) {
 
     var argv = require('yargs').argv;
     var bump = require('gulp-bump');
+    var filter = require('gulp-filter');
     var fs = require('fs');
     var git = require('gulp-git');
     var runSequence = require('gulp-run-sequence');
@@ -12,21 +13,13 @@ module.exports = function (gulp) {
     var _ = require('lodash');
 
     var branch = argv.branch || 'master';
-    var rootDir = argv.rootDir || './';
-
-    if (!s(rootDir).endsWith('/')) {
-        rootDir = rootDir + '/';
-    }
-
-    var readPackageVersion = function(filePath) {
-        return JSON.parse(fs.readFileSync(filePath, 'utf8')).version;
-    };
+    var rootDir = require('path').resolve(argv.rootDir || './') + '/';
 
     var commitIt = function (file, enc, cb) {
         if (file.isNull()) return cb(null, file);
         if (file.isStream()) return cb(new Error('Streaming not supported'));
 
-        var commitMessage = "Bumps version to " + readPackageVersion(file.path);
+        var commitMessage = "Bumps version to " + require(file.path).version;
         gulp.src('./*.json', {cwd: rootDir}).pipe(git.commit(commitMessage, {cwd: rootDir}));
     };
 
@@ -41,7 +34,7 @@ module.exports = function (gulp) {
     });
 
     gulp.task('tag-and-push', function () {
-        var pkg = require(rootDir + './package.json');
+        var pkg = require(rootDir + 'package.json');
 
         return gulp.src('./', {cwd: rootDir})
             .pipe(tag_version({version: pkg.version, cwd: rootDir}))
