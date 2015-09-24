@@ -2,11 +2,9 @@ module.exports = function (gulp) {
 
     var argv = require('yargs').argv;
     var bump = require('gulp-bump');
-    var filter = require('gulp-filter');
     var fs = require('fs');
     var git = require('gulp-git');
     var runSequence = require('gulp-run-sequence');
-    var s = require('string');
     var spawn = require('child_process').spawn;
     var tag_version = require('gulp-tag-version');
     var through = require('through2');
