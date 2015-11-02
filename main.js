@@ -6,7 +6,7 @@ module.exports = function (gulp) {
     var git = require('gulp-git');
     var runSequence = require('gulp-run-sequence');
     var spawn = require('child_process').spawn;
-    var tag_version = require('gulp-tag-version');
+    var tag_version = require('./tag_version');
     var through = require('through2');
     var _ = require('lodash');
 
