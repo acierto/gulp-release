@@ -31,6 +31,10 @@ module.exports = function (gulp) {
         runSequence('tag-and-push', 'npm-publish', 'bump', cb);
     });
 
+    gulp.task('github-release', function (cb) {
+        runSequence('tag-and-push', 'bump', cb);
+    });
+
     gulp.task('tag-and-push', function () {
         var pkg = require(rootDir + 'package.json');
 
