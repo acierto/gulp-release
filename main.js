@@ -46,6 +46,9 @@ module.exports = function (gulp) {
     });
 
     var versioning = function () {
+        if (preid()) {
+            return 'prerelease';
+        }
         if (argv.minor) {
             return 'minor';
         }
@@ -61,6 +64,9 @@ module.exports = function (gulp) {
         }
         if (argv.beta) {
             return 'beta';
+        }
+        if (argv.RC) {
+            return 'RC';
         }
         return undefined;
     };
