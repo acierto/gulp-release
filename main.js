@@ -55,9 +55,19 @@ module.exports = function (gulp) {
         return 'patch';
     };
 
+    var preid = function() {
+        if (argv.alpha) {
+            return 'alpha';
+        }
+        if (argv.beta) {
+            return 'beta';
+        }
+        return undefined;
+    };
+
     gulp.task('bump', function () {
         gulp.src(paths.versionsToBump, {cwd: rootDir})
-            .pipe(bump({type: versioning()}))
+            .pipe(bump({type: versioning(), preid: preid()}))
             .pipe(gulp.dest('./', {cwd: rootDir}))
             .pipe(through.obj(commitIt))
             .pipe(git.push('origin', branch, {cwd: rootDir}));
