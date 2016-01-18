@@ -13,12 +13,21 @@ module.exports = function (gulp) {
     var branch = argv.branch || 'master';
     var rootDir = require('path').resolve(argv.rootDir || './') + '/';
 
+    var printError = function (err) {
+        if (err) {
+            console.error(err);
+        }
+    };
+
     var commitIt = function (file, enc, cb) {
         if (file.isNull()) return cb(null, file);
         if (file.isStream()) return cb(new Error('Streaming not supported'));
 
-        var commitMessage = "Bumps version to " + require(file.path).version;
-        gulp.src('./*.json', {cwd: rootDir}).pipe(git.commit(commitMessage, {cwd: rootDir}));
+        var commitMessage = "Bumps version to v" + require(file.path).version;
+        gulp.src('./*.json', {cwd: rootDir}).pipe(git.commit(commitMessage, {cwd: rootDir})).
+        on('end', function() {
+            git.push('origin', branch, {cwd: rootDir}, printError);
+        });
     };
 
     var paths = {
@@ -41,7 +50,7 @@ module.exports = function (gulp) {
         return gulp.src('./', {cwd: rootDir})
             .pipe(tag_version({version: pkg.version, cwd: rootDir}))
             .on('end', function () {
-                git.push('origin', branch, {args: '--tags', cwd: rootDir});
+                git.push('origin', branch, {args: '--tags', cwd: rootDir}, printError);
             });
     });
 
@@ -58,7 +67,7 @@ module.exports = function (gulp) {
         return 'patch';
     };
 
-    var preid = function() {
+    var preid = function () {
         if (argv.alpha) {
             return 'alpha';
         }
