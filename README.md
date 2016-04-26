@@ -19,7 +19,15 @@ require('gulp-release-it')(gulp);
 
 ## How to release (publish to NPM repo and GitHub)
 
+```gulp complete-release```
+
+## How to release (publish to GitHub)
+
 ```gulp release```
+
+## How to bump and then release (publish to NPM repo and GitHub)
+
+```gulp bump-complete-release```
 
 ## How to bump and then release (publish to GitHub)
 

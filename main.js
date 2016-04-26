@@ -36,11 +36,15 @@ module.exports = function (gulp) {
         })
     };
 
-    gulp.task('release', function (cb) {
+    gulp.task('complete-release', function (cb) {
         runSequence('tag-and-push', 'npm-publish', 'bump', cb);
     });
 
-    gulp.task('github-release', function (cb) {
+    gulp.task('bump-complete-release', function (cb) {
+        runSequence('bump', 'tag-and-push', 'npm-publish', cb);
+    });
+
+    gulp.task('release', function (cb) {
         runSequence('tag-and-push', 'bump', cb);
     });
 
