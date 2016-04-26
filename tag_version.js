@@ -33,8 +33,7 @@ module.exports = function (opts) {
             if (err) {
                 throw err;
             }
-        });
-        cb(null, file)
+        }, cb);
     }
 
     return map(modifyContents)

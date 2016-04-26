@@ -23,9 +23,8 @@ module.exports = function (gulp) {
         if (file.isNull()) return cb(null, file);
         if (file.isStream()) return cb(new Error('Streaming not supported'));
 
-        var commitMessage = "Bumps version to v" + require(file.path).version;
-        gulp.src('./*.json', {cwd: rootDir}).pipe(git.commit(commitMessage, {cwd: rootDir})).
-        on('end', function() {
+        var commitMessage = "Bumps version to v" + JSON.parse(fs.readFileSync(file.path)).version;
+        gulp.src('./*.json', {cwd: rootDir}).pipe(git.commit(commitMessage, {cwd: rootDir})).on('end', function () {
             git.push('origin', branch, {cwd: rootDir}, printError);
         });
     };
@@ -52,13 +51,12 @@ module.exports = function (gulp) {
         runSequence('bump', 'tag-and-push', cb);
     });
 
-    gulp.task('tag-and-push', function () {
+    gulp.task('tag-and-push', function (done) {
         var pkg = JSON.parse(fs.readFileSync(rootDir + 'package.json'));
-        
-        return gulp.src('./', {cwd: rootDir})
+        gulp.src('./', {cwd: rootDir})
             .pipe(tag_version({version: pkg.version, cwd: rootDir}))
             .on('end', function () {
-                git.push('origin', branch, {args: '--tags', cwd: rootDir}, printError);
+                git.push('origin', branch, {args: '--tags', cwd: rootDir}, done);
             });
     });
 
@@ -88,12 +86,12 @@ module.exports = function (gulp) {
         return undefined;
     };
 
-    gulp.task('bump', function () {
+    gulp.task('bump', function (resolve) {
         gulp.src(paths.versionsToBump, {cwd: rootDir})
             .pipe(bump({type: versioning(), preid: preid()}))
             .pipe(gulp.dest('./', {cwd: rootDir}))
             .pipe(through.obj(commitIt))
-            .pipe(git.push('origin', branch, {cwd: rootDir}));
+            .pipe(git.push('origin', branch, {cwd: rootDir}, resolve))
     });
 
     gulp.task('npm-publish', function (done) {
