@@ -17,25 +17,17 @@ require('gulp-release-it')(gulp);
 2. Publish the project to NPM repository 
 3. Bumps the version of package.json, bower.json or/and manifest.json
 
-## How to release (publish to NPM repo and GitHub)
+## How to publish and bumps to a new version
 
-```gulp complete-release```
+```gulp complete-release``` # publish to NPM repo and GitHub
 
-## How to release (publish to GitHub)
+```gulp release``` # publish to GitHub
 
-```gulp release```
+## How to bump  to a new version and then release
 
-## How to bump and then release (publish to NPM repo and GitHub)
+```gulp bump-complete-release``` # publish to NPM repo and GitHub
 
-```gulp bump-complete-release```
-
-## How to bump and then release (publish to GitHub)
-
-```gulp bump-release```
-
-## How to release only to GitHub
-
-```gulp github-release```
+```gulp bump-release``` # publish to GitHub
 
 ## How to release from different folder
 
