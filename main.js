@@ -44,6 +44,10 @@ module.exports = function (gulp) {
         runSequence('tag-and-push', 'bump', cb);
     });
 
+    gulp.task('bump-release', function (cb) {
+        runSequence('bump', 'tag-and-push', cb);
+    });
+
     gulp.task('tag-and-push', function () {
         var pkg = require(rootDir + 'package.json');
 

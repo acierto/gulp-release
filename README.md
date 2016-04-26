@@ -15,11 +15,15 @@ require('gulp-release-it')(gulp);
 
 1. Create a tag based on version specified in package.json
 2. Publish the project to NPM repository 
-2. Bumps the version of package.json, bower.json or/and manifest.json
+3. Bumps the version of package.json, bower.json or/and manifest.json
 
 ## How to release (publish to NPM repo and GitHub)
 
 ```gulp release```
+
+## How to bump and then release (publish to GitHub)
+
+```gulp bump-release```
 
 ## How to release only to GitHub
 
