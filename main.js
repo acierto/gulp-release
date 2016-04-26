@@ -4,8 +4,10 @@ module.exports = function (gulp) {
     var bump = require('gulp-bump');
     var fs = require('fs');
     var git = require('gulp-git');
+    var jeditor = require("gulp-json-editor");
     var runSequence = require('gulp-run-sequence');
     var spawn = require('child_process').spawn;
+    var semver = require('semver');
     var tag_version = require('./tag_version');
     var through = require('through2');
     var _ = require('lodash');
@@ -19,13 +21,16 @@ module.exports = function (gulp) {
         }
     };
 
+    var currVersion = function () {
+        return JSON.parse(fs.readFileSync(rootDir + 'package.json')).version;
+    };
+
     var commitIt = function (file, enc, cb) {
         if (file.isNull()) return cb(null, file);
         if (file.isStream()) return cb(new Error('Streaming not supported'));
 
-        var commitMessage = "Bumps version to v" + require(file.path).version;
-        gulp.src('./*.json', {cwd: rootDir}).pipe(git.commit(commitMessage, {cwd: rootDir})).
-        on('end', function() {
+        var commitMessage = "Bumps version to v" + JSON.parse(fs.readFileSync(file.path)).version;
+        gulp.src('./*.json', {cwd: rootDir}).pipe(git.commit(commitMessage, {cwd: rootDir})).on('end', function () {
             git.push('origin', branch, {cwd: rootDir}, printError);
         });
     };
@@ -52,13 +57,11 @@ module.exports = function (gulp) {
         runSequence('bump', 'tag-and-push', cb);
     });
 
-    gulp.task('tag-and-push', function () {
-        var pkg = require(rootDir + 'package.json');
-
-        return gulp.src('./', {cwd: rootDir})
-            .pipe(tag_version({version: pkg.version, cwd: rootDir}))
+    gulp.task('tag-and-push', function (done) {
+        gulp.src('./', {cwd: rootDir})
+            .pipe(tag_version({version: currVersion(), cwd: rootDir}))
             .on('end', function () {
-                git.push('origin', branch, {args: '--tags', cwd: rootDir}, printError);
+                git.push('origin', branch, {args: '--tags', cwd: rootDir}, done);
             });
     });
 
@@ -88,12 +91,15 @@ module.exports = function (gulp) {
         return undefined;
     };
 
-    gulp.task('bump', function () {
+    gulp.task('bump', function (resolve) {
+        var newVersion = semver.inc(currVersion(), versioning(), preid());
         gulp.src(paths.versionsToBump, {cwd: rootDir})
-            .pipe(bump({type: versioning(), preid: preid()}))
+            .pipe(jeditor({
+                'version': newVersion
+            }))
             .pipe(gulp.dest('./', {cwd: rootDir}))
             .pipe(through.obj(commitIt))
-            .pipe(git.push('origin', branch, {cwd: rootDir}));
+            .pipe(git.push('origin', branch, {cwd: rootDir}, resolve));
     });
 
     gulp.task('npm-publish', function (done) {
