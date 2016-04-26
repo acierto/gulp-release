@@ -53,8 +53,8 @@ module.exports = function (gulp) {
     });
 
     gulp.task('tag-and-push', function () {
-        var pkg = require(rootDir + 'package.json');
-
+        var pkg = JSON.parse(fs.readFileSync(rootDir + 'package.json'));
+        
         return gulp.src('./', {cwd: rootDir})
             .pipe(tag_version({version: pkg.version, cwd: rootDir}))
             .on('end', function () {
