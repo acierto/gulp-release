@@ -4,8 +4,10 @@ module.exports = function (gulp) {
     var bump = require('gulp-bump');
     var fs = require('fs');
     var git = require('gulp-git');
+    var jeditor = require("gulp-json-editor");
     var runSequence = require('gulp-run-sequence');
     var spawn = require('child_process').spawn;
+    var semver = require('semver');
     var tag_version = require('./tag_version');
     var through = require('through2');
     var _ = require('lodash');
@@ -17,6 +19,10 @@ module.exports = function (gulp) {
         if (err) {
             console.error(err);
         }
+    };
+
+    var currVersion = function () {
+        return JSON.parse(fs.readFileSync(rootDir + 'package.json')).version;
     };
 
     var commitIt = function (file, enc, cb) {
@@ -52,9 +58,8 @@ module.exports = function (gulp) {
     });
 
     gulp.task('tag-and-push', function (done) {
-        var pkg = JSON.parse(fs.readFileSync(rootDir + 'package.json'));
         gulp.src('./', {cwd: rootDir})
-            .pipe(tag_version({version: pkg.version, cwd: rootDir}))
+            .pipe(tag_version({version: currVersion(), cwd: rootDir}))
             .on('end', function () {
                 git.push('origin', branch, {args: '--tags', cwd: rootDir}, done);
             });
@@ -87,11 +92,14 @@ module.exports = function (gulp) {
     };
 
     gulp.task('bump', function (resolve) {
+        var newVersion = semver.inc(currVersion(), versioning(), preid());
         gulp.src(paths.versionsToBump, {cwd: rootDir})
-            .pipe(bump({type: versioning(), preid: preid()}))
+            .pipe(jeditor({
+                'version': newVersion
+            }))
             .pipe(gulp.dest('./', {cwd: rootDir}))
             .pipe(through.obj(commitIt))
-            .pipe(git.push('origin', branch, {cwd: rootDir}, resolve))
+            .pipe(git.push('origin', branch, {cwd: rootDir}, resolve));
     });
 
     gulp.task('npm-publish', function (done) {
