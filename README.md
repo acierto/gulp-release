@@ -44,7 +44,7 @@ plugin fetches the version of package.json, bumps it and applies the same versio
 It can be very handy, especially if somebody from the team decided to update manually one of the files but 
 forgot to do it for another files too.
 
-## How to publish and bumps to a new version
+## How to publish and bump to a new version
 
 ```gulp complete-release``` # publish to NPM repo and GitHub
 

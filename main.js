@@ -88,6 +88,9 @@ module.exports = function (gulp) {
         if (argv.RC) {
             return 'RC';
         }
+        if (argv['pre-release']) {
+            return argv['pre-release'];
+        }
         return undefined;
     };
 
