@@ -59,26 +59,27 @@ forgot to do it for another files too.
 
 ## Different ways to bump the version after release
 
-command              | version
----------------------|-----------------
-gulp release         | v0.0.1 -> v0.0.2 
-gulp release --minor | v0.0.1 -> v0.1.0 
-gulp release --major | v0.0.1 -> v1.0.1
-gulp release --alpha | v0.0.1 -> v1.0.1-alpha.0
-gulp release --beta  | v0.0.1 -> v1.0.1-beta.0
-gulp release --RC    | v0.0.1 -> v1.0.1-RC.0
+command                              | version
+-------------------------------------|-----------------
+gulp release                         | v0.0.1 -> v0.0.2 
+gulp release --minor                 | v0.0.1 -> v0.1.0 
+gulp release --major                 | v0.0.1 -> v1.0.1
+gulp release --alpha                 | v0.0.1 -> v1.0.1-alpha.0
+gulp release --beta                  | v0.0.1 -> v1.0.1-beta.0
+gulp release --RC                    | v0.0.1 -> v1.0.1-RC.0
+gulp release --pre-release gamma     | v0.0.1 -> v0.0.1-gamma.0
 
 ### If you want only to bump the version
 
-command                         | version
---------------------------------|-----------------
-gulp bump                       | v0.0.1 -> v0.0.2 
-gulp bump --minor               | v0.0.1 -> v0.1.0 
-gulp bump --major               | v0.0.1 -> v1.0.1
-gulp bump --alpha               | v0.0.1 -> v1.0.1-alpha.0
-gulp bump --beta                | v0.0.1 -> v1.0.1-beta.0
-gulp bump --RC                  | v0.0.1 -> v1.0.1-RC.0
-gulp bump --pre-release gamma   | v0.0.1 -> v0.0.1-gamma.0
+command                              | version
+-------------------------------------|-----------------
+gulp bump                            | v0.0.1 -> v0.0.2 
+gulp bump --minor                    | v0.0.1 -> v0.1.0 
+gulp bump --major                    | v0.0.1 -> v1.0.1
+gulp bump --alpha                    | v0.0.1 -> v1.0.1-alpha.0
+gulp bump --beta                     | v0.0.1 -> v1.0.1-beta.0
+gulp bump --RC                       | v0.0.1 -> v1.0.1-RC.0
+gulp bump --pre-release gamma        | v0.0.1 -> v0.0.1-gamma.0
  
 ## How to release from different branch
  
