@@ -5,7 +5,7 @@ module.exports = function (gulp) {
     var fs = require('fs');
     var git = require('gulp-git');
     var jeditor = require("gulp-json-editor");
-    var runSequence = require('gulp-run-sequence');
+    var runSequence = require('run-sequence');
     var spawn = require('child_process').spawn;
     var semver = require('semver');
     var tag_version = require('./tag_version');
@@ -15,23 +15,20 @@ module.exports = function (gulp) {
     var branch = argv.branch || 'master';
     var rootDir = require('path').resolve(argv.rootDir || './') + '/';
 
-    var printError = function (err) {
-        if (err) {
-            console.error(err);
-        }
-    };
-
     var currVersion = function () {
         return JSON.parse(fs.readFileSync(rootDir + 'package.json')).version;
     };
 
-    var commitIt = function (file, enc, cb) {
-        if (file.isNull()) return cb(null, file);
-        if (file.isStream()) return cb(new Error('Streaming not supported'));
-
-        var commitMessage = "Bumps version to v" + JSON.parse(fs.readFileSync(file.path)).version;
+    var commitIt = function (version, cb) {
+        var commitMessage = "Bumps version to v" + version;
         gulp.src('./*.json', {cwd: rootDir}).pipe(git.commit(commitMessage, {cwd: rootDir})).on('end', function () {
-            git.push('origin', branch, {cwd: rootDir}, printError);
+            git.push('origin', branch, {cwd: rootDir}, function (err) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    cb();
+                }
+            });
         });
     };
 
@@ -102,11 +99,9 @@ module.exports = function (gulp) {
             .pipe(jeditor({
                 'version': newVersion
             }))
-            .pipe(gulp.dest('./', {cwd: rootDir}))
-            .pipe(through.obj(commitIt))
-            .on('end', function () {
-                git.push('origin', branch, {cwd: rootDir}, resolve);
-            });
+            .pipe(gulp.dest('./', {cwd: rootDir}));
+
+        commitIt(newVersion, resolve);
     });
 
     gulp.task('npm-publish', function (done) {
