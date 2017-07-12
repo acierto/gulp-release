@@ -29,11 +29,12 @@ module.exports = function (opts) {
         var tag = opts.prefix + version;
         var label = opts.label.replace('%t', tag);
         gutil.log('Tagging as: ' + gutil.colors.cyan(tag));
-        git.tag(tag, label, function (err) {
+        git.tag(tag, label, {cwd: opts.cwd}, function (err) {
             if (err) {
                 throw err;
             }
-        }, cb);
+            cb();
+        });
     }
 
     return map(modifyContents)

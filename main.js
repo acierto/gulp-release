@@ -104,7 +104,9 @@ module.exports = function (gulp) {
             }))
             .pipe(gulp.dest('./', {cwd: rootDir}))
             .pipe(through.obj(commitIt))
-            .pipe(git.push('origin', branch, {cwd: rootDir}, resolve));
+            .on('end', function () {
+                git.push('origin', branch, {cwd: rootDir}, resolve);
+            });
     });
 
     gulp.task('npm-publish', function (done) {
