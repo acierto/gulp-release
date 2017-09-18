@@ -105,7 +105,7 @@ module.exports = function (gulp) {
     });
 
     gulp.task('npm-publish', function (done) {
-        spawn('npm', ['publish', rootDir], {stdio: 'inherit'}).on('close', done);
+        spawn('npm', ['publish', rootDir], {stdio: 'inherit', shell: true}).on('close', done);
     });
 
 };
