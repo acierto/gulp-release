@@ -52,7 +52,12 @@ module.exports = function (gulp) {
         runSequence('bump', 'tag-and-push', cb);
     });
 
-    gulp.task('tag-and-push', function (done) {
+    // can be overrode in the real project i.e. by means of gulp-appfy-tasks.
+    gulp.task('pre-tag-and-push', function (cb) {
+        cb();
+    });
+
+    gulp.task('tag-and-push', ['pre-tag-and-push'], function (done) {
         gulp.src('./', {cwd: rootDir})
             .pipe(tag_version({version: currVersion(), cwd: rootDir}))
             .on('end', function () {

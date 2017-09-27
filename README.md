@@ -89,3 +89,30 @@ gulp bump --pre-release gamma        | v0.0.1 -> v0.0.1-gamma.0
 
 ```gulp release --rootDir=/path/to/project```
 
+## You can also have a pre-hook before executing tag-and-push task.
+
+It can be helpful if you want to run some check first and only then release do a release.
+For a example it can be a check that you don't use any forbidden licenses.
+For that you need to do this:
+
+```
+    import gulp from 'gulp';
+    import initReleaseIt from 'gulp-release-it';
+    
+    import appfy from 'gulp-appfy-tasks';
+    appfy.init(__dirname);
+    appfy.defineTasks();
+    
+    initReleaseIt(gulp);
+    
+    gulp.task('pre-tag-and-push', function (cb) {
+        console.log('i can override pre tag and push task');
+        cb();
+    });
+```
+
+What is happening here actually, by means of plugin `gulp-appfy-tasks` we
+override default `pre-tag-and-push` task which by default does nothing. 
+`pre-tag-and-push` task triggers every time before executing `tag-and-push`
+task. 
+  
