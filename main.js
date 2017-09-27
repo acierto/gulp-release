@@ -1,7 +1,6 @@
 module.exports = function (gulp) {
 
     var argv = require('yargs').argv;
-    var bump = require('gulp-bump');
     var fs = require('fs');
     var git = require('gulp-git');
     var jeditor = require("gulp-json-editor");
@@ -9,7 +8,6 @@ module.exports = function (gulp) {
     var spawn = require('child_process').spawn;
     var semver = require('semver');
     var tag_version = require('./tag_version');
-    var through = require('through2');
     var _ = require('lodash');
 
     var branch = argv.branch || 'master';
