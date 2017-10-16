@@ -10,7 +10,7 @@ module.exports = function (gulp) {
     var tag_version = require('./tag_version');
     var _ = require('lodash');
 
-    var branch = argv.branch || 'master';
+    var branch;
     var rootDir = require('path').resolve(argv.rootDir || './') + '/';
 
     var currVersion = function () {
@@ -57,7 +57,7 @@ module.exports = function (gulp) {
         cb();
     });
 
-    gulp.task('tag-and-push', ['pre-tag-and-push'], function (done) {
+    gulp.task('tag-and-push', ['get-current-branch-name', 'pre-tag-and-push'], function (done) {
         gulp.src('./', {cwd: rootDir})
             .pipe(tag_version({version: currVersion(), cwd: rootDir}))
             .on('end', function () {
@@ -94,7 +94,16 @@ module.exports = function (gulp) {
         return undefined;
     };
 
-    gulp.task('bump', function (resolve) {
+    gulp.task('get-current-branch-name', function (resolve) {
+        git.revParse({args: '--abbrev-ref HEAD'}, function (err, currentBranch) {
+            if (!branch) {
+                branch = currentBranch;
+            }
+            resolve();
+        });
+    });
+
+    gulp.task('bump', ['get-current-branch-name'], function (resolve) {
         var newVersion = semver.inc(currVersion(), versioning(), preid());
         git.pull('origin', branch, {args: '--rebase', cwd: rootDir});
 
