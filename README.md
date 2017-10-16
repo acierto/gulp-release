@@ -83,8 +83,7 @@ gulp bump --pre-release gamma        | v0.0.1 -> v0.0.1-gamma.0
  
 ## How to release from different branch
  
-For that you don't need to do any special actions, it can release from any branch without explicit parameters.
-`gulp-release-it` will define in which branch currently you are and push changes there. 
+```gulp release --branch=branch_name```
 
 ## How to release from different folder
 

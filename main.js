@@ -10,7 +10,9 @@ module.exports = function (gulp) {
     var tag_version = require('./tag_version');
     var _ = require('lodash');
 
-    var branch;
+    var currentBranch;
+    var branch = argv.branch;
+
     var rootDir = require('path').resolve(argv.rootDir || './') + '/';
 
     var currVersion = function () {
@@ -20,7 +22,7 @@ module.exports = function (gulp) {
     var commitIt = function (version, cb) {
         var commitMessage = "Bumps version to v" + version;
         gulp.src('./*.json', {cwd: rootDir}).pipe(git.commit(commitMessage, {cwd: rootDir})).on('end', function () {
-            git.push('origin', branch, {cwd: rootDir}, function (err) {
+            git.push('origin', currentBranch + ':' + branch, {cwd: rootDir}, function (err) {
                 if (err) {
                     console.error(err);
                 } else {
@@ -61,7 +63,7 @@ module.exports = function (gulp) {
         gulp.src('./', {cwd: rootDir})
             .pipe(tag_version({version: currVersion(), cwd: rootDir}))
             .on('end', function () {
-                git.push('origin', branch, {args: '--tags', cwd: rootDir}, done);
+                git.push('origin', currentBranch + ':' + branch, {args: '--tags', cwd: rootDir}, done);
             });
     });
 
@@ -95,9 +97,9 @@ module.exports = function (gulp) {
     };
 
     gulp.task('get-current-branch-name', function (resolve) {
-        git.revParse({args: '--abbrev-ref HEAD'}, function (err, currentBranch) {
-            if (!branch) {
-                branch = currentBranch;
+        git.revParse({args: '--abbrev-ref HEAD'}, function (err, branchName) {
+            if (!currentBranch) {
+                currentBranch = branchName;
             }
             resolve();
         });
@@ -105,7 +107,7 @@ module.exports = function (gulp) {
 
     gulp.task('bump', ['get-current-branch-name'], function (resolve) {
         var newVersion = semver.inc(currVersion(), versioning(), preid());
-        git.pull('origin', branch, {args: '--rebase', cwd: rootDir});
+        git.pull('origin', currentBranch + ':' + branch, {args: '--rebase', cwd: rootDir});
 
         gulp.src(paths.versionsToBump, {cwd: rootDir})
             .pipe(jeditor({
