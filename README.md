@@ -16,22 +16,22 @@ require('gulp-release-it')(gulp);
 ### First approach ``` gulp complete-release```
 
 1. Creates a tag based on *current* version specified in package.json
-2. Publishes the project to NPM repository 
+2. Publishes the project to Git repository 
 3. Bumps the version of package.json, bower.json or/and manifest.json
 
 So if you have package.json with version v1.0.0 and do ``` gulp release``` 
-you will have in GitHub tag v1.0.0, the same in NPM Repo and your package.json 
-will be bumped up to version v1.0.1 (future release version) and committed to GitHub
+you will have in GitH tag v1.0.0, the same in NPM Repo and your package.json 
+will be bumped up to version v1.0.1 (future release version) and committed to Git
 
 ### Second approach ``` gulp bump-complete-release```
 
 1. Bumps the version of package.json, bower.json or/and manifest.json
 2. Creates a tag based on *current* version specified in package.json
-3. Publishes the project to NPM repository 
+3. Publishes the project to Git repository 
 
 So if you have package.json with version v1.0.0 and do ``` gulp bump-release``` 
-your package.json will be bumped up and committed to GitHub to v1.0.1 (last released version) 
-and you will have in GitHub tag v1.0.1, the same in NPM Repo.
+your package.json will be bumped up and committed to Git to v1.0.1 (last released version) 
+and you will have in Git tag v1.0.1, the same in NPM Repo.
 
 The big difference between two approaches is in - what do you want to save in your configuration file -
 the last released version or the future version. The most suitable case you can choose by yourself.
@@ -46,15 +46,15 @@ forgot to do it for another files too.
 
 ## How to publish and bump to a new version
 
-```gulp complete-release``` # publish to NPM repo and GitHub
+```gulp complete-release``` # publish to NPM repo and Git
 
-```gulp release``` # publish to GitHub
+```gulp release``` # publish to Git
 
 ## How to bump  to a new version and then release
 
-```gulp bump-complete-release``` # publish to NPM repo and GitHub
+```gulp bump-complete-release``` # publish to NPM repo and Git
 
-```gulp bump-release``` # publish to GitHub
+```gulp bump-release``` # publish to Git
 
 
 ## Different ways to bump the version after release
