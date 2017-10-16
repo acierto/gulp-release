@@ -11,7 +11,7 @@ module.exports = function (gulp) {
     var _ = require('lodash');
 
     var currentBranch;
-    var branch = argv.branch;
+    var branch = argv.branch || 'master';
 
     var rootDir = require('path').resolve(argv.rootDir || './') + '/';
 
