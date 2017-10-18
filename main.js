@@ -22,13 +22,7 @@ module.exports = function (gulp) {
     var commitIt = function (version, cb) {
         var commitMessage = "Bumps version to v" + version;
         gulp.src('./*.json', {cwd: rootDir}).pipe(git.commit(commitMessage, {cwd: rootDir})).on('end', function () {
-            git.push('origin', currentBranch + ':' + branch, {cwd: rootDir}, function (err) {
-                if (err) {
-                    console.error(err);
-                } else {
-                    cb();
-                }
-            });
+            git.push('origin', currentBranch + ':' + branch, {cwd: rootDir}, cb);
         });
     };
 
