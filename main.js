@@ -87,7 +87,7 @@ module.exports = function (gulp) {
         var newVersion = semver.inc(currVersion(), versioning(), preid());
         git.pull('origin', currentBranch + ':' + branch, {args: '--rebase', cwd: rootDir});
 
-        gulp.src(paths.versionsToBump, {cwd: rootDir})
+        gulp.src(paths.versionsToBump, {allowEmpty: true, cwd: rootDir})
             .pipe(jeditor({
                 'version': newVersion
             }))
