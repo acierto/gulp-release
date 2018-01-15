@@ -14,13 +14,15 @@ module.exports = function (gulp) {
 
     var rootDir = require('path').resolve(argv.rootDir || './') + '/';
 
+    var srcConfig = {allowEmpty: true, cwd: rootDir};
+
     var currVersion = function () {
         return JSON.parse(fs.readFileSync(rootDir + 'package.json')).version;
     };
 
     var commitIt = function (version, cb) {
         var commitMessage = "Bumps version to v" + version;
-        return gulp.src('./*.json', {cwd: rootDir}).pipe(git.commit(commitMessage, {cwd: rootDir}))
+        return gulp.src('./*.json', srcConfig).pipe(git.commit(commitMessage, {cwd: rootDir}))
             .on('end', function () {
                 git.push('origin', currentBranch + ':' + branch, {cwd: rootDir}, cb);
             });
@@ -47,7 +49,7 @@ module.exports = function (gulp) {
     });
 
     gulp.task('tag-and-push', gulp.series('get-current-branch-name', 'pre-tag-and-push', function (done) {
-        return gulp.src('./', {cwd: rootDir})
+        return gulp.src('./', srcConfig)
             .pipe(tag_version({version: currVersion(), cwd: rootDir}))
             .on('end', function () {
                 git.push('origin', currentBranch + ':' + branch, {args: '--tags', cwd: rootDir}, done);
@@ -87,7 +89,7 @@ module.exports = function (gulp) {
         var newVersion = semver.inc(currVersion(), versioning(), preid());
         git.pull('origin', currentBranch + ':' + branch, {args: '--rebase', cwd: rootDir});
 
-        gulp.src(paths.versionsToBump, {allowEmpty: true, cwd: rootDir})
+        gulp.src(paths.versionsToBump, srcConfig)
             .pipe(jeditor({
                 'version': newVersion
             }))
