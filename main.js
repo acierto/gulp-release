@@ -54,7 +54,7 @@ module.exports = function (gulp) {
         return gulp.src('./', srcConfig)
             .pipe(tag_version({version: currVersion(), cwd: rootDir}))
             .on('end', function () {
-                git.push('origin', currentBranch + ':' + branch, {args: '--tags', cwd: rootDir}, function (err) {
+                git.push('origin', currentBranch + ':' + currVersion(), {cwd: rootDir}, function (err) {
                     if (err) {
                         flog(colors.red(err));
                     }
