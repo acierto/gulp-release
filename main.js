@@ -1,6 +1,8 @@
 module.exports = function (gulp) {
 
     var argv = require('yargs').argv;
+    var colors = require('ansi-colors');
+    var flog = require('fancy-log');
     var fs = require('fs');
     var git = require('gulp-git');
     var jeditor = require("gulp-json-editor");
@@ -52,7 +54,12 @@ module.exports = function (gulp) {
         return gulp.src('./', srcConfig)
             .pipe(tag_version({version: currVersion(), cwd: rootDir}))
             .on('end', function () {
-                git.push('origin', currentBranch + ':' + branch, {args: '--tags', cwd: rootDir}, done);
+                git.push('origin', currentBranch + ':' + branch, {args: '--tags', cwd: rootDir}, function (err) {
+                    if (err) {
+                        flog(colors.red(err));
+                    }
+                    done();
+                });
             });
     }));
 
