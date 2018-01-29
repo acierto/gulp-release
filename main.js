@@ -94,15 +94,15 @@ module.exports = function (gulp) {
 
     gulp.task('bump', gulp.series('get-current-branch-name', function (resolve) {
         var newVersion = semver.inc(currVersion(), versioning(), preid());
-        git.pull('origin', currentBranch + ':' + branch, {args: '--rebase', cwd: rootDir});
+        git.pull('origin', currentBranch + ':' + branch, {args: '--rebase', cwd: rootDir}, function () {
+            gulp.src(paths.versionsToBump, srcConfig)
+                .pipe(jeditor({
+                    'version': newVersion
+                }))
+                .pipe(gulp.dest('./', {cwd: rootDir}));
 
-        gulp.src(paths.versionsToBump, srcConfig)
-            .pipe(jeditor({
-                'version': newVersion
-            }))
-            .pipe(gulp.dest('./', {cwd: rootDir}));
-
-        return commitIt(newVersion, resolve);
+            return commitIt(newVersion, resolve);
+        });
     }));
 
     gulp.task('npm-publish', function (done) {

@@ -11,9 +11,9 @@ var gulp = require('gulp');
 require('gulp-release-it')(gulp);
 ```
 
-If you are using Gulp 3, then you need to use v1.1.14
+If you are using Gulp 3, then you need to use v1.x
 
-If you are using Gulp 4, then you need to use v2.0.2
+If you are using Gulp 4, then you need to use v2.x
 
 ## How release works
 
