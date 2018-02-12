@@ -1,3 +1,3 @@
 var gulp = require('gulp');
 
-require('./main')(gulp);
+require('./main').release(gulp);
