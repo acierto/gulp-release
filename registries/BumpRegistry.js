@@ -1,6 +1,6 @@
 var argv = require('yargs').argv;
 var git = require('gulp-git');
-var jeditor = require("gulp-json-editor");
+var jeditor = require('gulp-json-editor');
 var semver = require('semver');
 var util = require('util');
 var variables = require('../utils/variables');
@@ -42,7 +42,7 @@ var versioning = function () {
 };
 
 var commitIt = function (takerInst, version, store, cb) {
-    var commitMessage = "Bumps version to v" + version;
+    var commitMessage = 'Bumps version to v' + version;
     return takerInst.src('./*.json', variables.srcConfig).pipe(git.commit(commitMessage, {cwd: variables.rootDir}))
         .on('end', function () {
             git.push('origin', store.currentBranch + ':' + store.branch, {cwd: variables.rootDir}, cb);
