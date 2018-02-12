@@ -1,4 +1,14 @@
-module.exports = function (gulp) {
+var DefaultReleaseRegistry = require('./registry');
+
+function release(gulp, customRegistries) {
+    var registry = new DefaultReleaseRegistry();
+    gulp.registry(registry);
+
+    if (customRegistries) {
+        for (var ind = 0; ind < customRegistries.length; ind++) {
+            gulp.registry(customRegistries[ind]);
+        }
+    }
 
     var argv = require('yargs').argv;
     var colors = require('ansi-colors');
@@ -35,11 +45,6 @@ module.exports = function (gulp) {
             return rootDir + fileName;
         })
     };
-
-    // can be overrode in the real project i.e. by means of gulp-appfy-tasks.
-    gulp.task('pre-tag-and-push', function (cb) {
-        cb();
-    });
 
     gulp.task('get-current-branch-name', function (resolve) {
         git.revParse({args: '--abbrev-ref HEAD'}, function (err, branchName) {
@@ -116,4 +121,9 @@ module.exports = function (gulp) {
     gulp.task('complete-release', gulp.series('tag-and-push', 'npm-publish', 'bump'));
 
     gulp.task('bump-complete-release', gulp.series('bump', 'tag-and-push', 'npm-publish'));
+}
+
+module.exports = {
+    release: release,
+    DefaultReleaseRegistry: DefaultReleaseRegistry
 };
