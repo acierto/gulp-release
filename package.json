@@ -4,21 +4,28 @@
   "author": "Bogdan Nechyporenko",
   "repository": "git@github.com:acierto/gulp-release.git",
   "version": "2.0.8",
-  "main": "main.js",
+  "main": "dist/main.js",
   "dependencies": {
     "ansi-colors": "1.0.1",
     "fancy-log": "1.3.2",
-    "gulp-git": "2.5.0",
+    "gulp-babel": "7.0.1",
+    "gulp-git": "2.5.1",
     "gulp-json-editor": "2.2.1",
     "gulp-prompt": "1.0.1",
-    "lodash": "4.17.4",
     "map-stream": "0.0.7",
-    "semver": "5.4.1",
+    "semver": "5.5.0",
     "string": "3.3.3",
-    "yargs": "10.1.1"
+    "undertaker-registry": "^1.0.1",
+    "yargs": "11.0.0"
   },
   "devDependencies": {
-    "gulp": "4.0.0"
+    "babel-core": "6.26.0",
+    "babel-eslint": "8.2.1",
+    "babel-preset-es2015": "6.24.1",
+    "eslint-plugin-babel": "4.1.2",
+    "eslint-plugin-import": "^2.8.0",
+    "gulp": "4.0.0",
+    "gulp-eslint": "^4.0.2"
   },
   "license": "MIT"
 }

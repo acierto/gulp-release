@@ -123,6 +123,6 @@ Registry name                         | Tasks
 DefaultBumpRegistry                   | bump 
 DefaultGitUtilsRegistry               | get-current-branch-name 
 DefaultNpmPublishRegistry             | npm-publish
-PreTagAndPushRegistry                 | pre-tag-and-push
+DefaultPreTagAndPushRegistry          | pre-tag-and-push
 DefaultReleaseRegistry                | release, bump-release, complete-release, bump-complete-release
 DefaultTagAndPushRegistry             | tag-and-push
