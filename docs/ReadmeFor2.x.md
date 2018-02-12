@@ -115,4 +115,14 @@ For that you need to do this:
 ```
 
 You can follow for a more documentation how to work with registries here: https://github.com/gulpjs/undertaker-registry
-  
+
+### Short description of registries
+
+Registry name                         | Tasks
+--------------------------------------|---------------------------------------------------------------
+DefaultBumpRegistry                   | bump 
+DefaultGitUtilsRegistry               | get-current-branch-name 
+DefaultNpmPublishRegistry             | npm-publish
+PreTagAndPushRegistry                 | pre-tag-and-push
+DefaultReleaseRegistry                | release, bump-release, complete-release, bump-complete-release
+DefaultTagAndPushRegistry             | tag-and-push
