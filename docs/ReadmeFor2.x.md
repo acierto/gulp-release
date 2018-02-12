@@ -113,4 +113,6 @@ For that you need to do this:
     release(gulp, [new CustomGulpReleaseRegistry()]);
 
 ```
+
+You can follow for a more documentation how to work with registries here: https://github.com/gulpjs/undertaker-registry
   
