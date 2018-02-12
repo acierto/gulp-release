@@ -1,4 +1,4 @@
-import {release} from './lib/main';
+import {DefaultReleaseRegistry, release} from './lib/main';
 import eslint from 'gulp-eslint';
 import gulp from 'gulp';
 import babel from 'gulp-babel';
@@ -16,4 +16,10 @@ gulp.task('build', gulp.series('lint', () =>
         .pipe(gulp.dest('dist'))
 ));
 
-release(gulp);
+class CustomGulpReleaseRegistry extends DefaultReleaseRegistry {
+    init(takerInst) {
+        takerInst.task('pre-tag-and-push', gulp.series('lint', 'build'));
+    }
+}
+
+release(gulp, [new CustomGulpReleaseRegistry()]);
