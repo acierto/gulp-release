@@ -41,6 +41,11 @@ plugin fetches the version of package.json, bumps it and applies the same versio
 It can be very handy, especially if somebody from the team decided to update manually one of the files but 
 forgot to do it for another files too.
 
+As an additional check, plugin checks which tags are already existed. If you for example have a stale code with 
+version "1.0.1" and real version is already "1.0.4" and in between released were already made (1.0.2, 1.0.3, 1.0.4). 
+The check would be performed and instead of failing that v1.0.2 tag already existed, version would be bumped up to
+1.0.5. This strategy is applied to all kind of bumping: minor, major, alpha, etc.
+
 ## How to publish and bump to a new version
 
 ```gulp complete-release``` # publish to NPM repo and Git
