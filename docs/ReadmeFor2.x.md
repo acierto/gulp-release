@@ -111,9 +111,28 @@ For that you need to do this:
         }
     }
     
-    release(gulp, [new CustomGulpReleaseRegistry()]);
+    release(gulp, {before: [new CustomGulpReleaseRegistry()]});
 
 ```
+
+You can define your own registries with tasks and decide the way of priority how they will be added. 
+One way to define it before: 
+
+```
+    release(gulp, {before: [new CustomGulpReleaseRegistry()]});
+```
+
+another one after
+
+```
+    release(gulp, {after: [new CustomGulpReleaseRegistry()]});
+```
+
+The difference is that last defined one wins. 
+
+But be aware that if task was defined twice and you will call this task directly or as a dependency will make 
+a difference. So keeping that in mind you can create a proper strategy for your task graph (for example by preventing 
+inside of registry duplicated task, or remove previous task from registry and reapply the new one).
 
 You can follow for a more documentation how to work with registries here: https://github.com/gulpjs/undertaker-registry
 

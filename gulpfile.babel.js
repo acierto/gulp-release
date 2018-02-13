@@ -18,8 +18,8 @@ gulp.task('build', gulp.series('lint', () =>
 
 class CustomGulpReleaseRegistry extends DefaultReleaseRegistry {
     init(takerInst) {
-        takerInst.task('pre-tag-and-push', gulp.series('build'));
+        takerInst.task('pre-tag-and-push', takerInst.series('build'));
     }
 }
 
-release(gulp, [new CustomGulpReleaseRegistry()]);
+release(gulp, {before: [new CustomGulpReleaseRegistry()]});
