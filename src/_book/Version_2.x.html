@@ -1,0 +1,438 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Version 2.x · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="Version_1.x.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="Version_1.x.html">
+            
+                <a href="Version_1.x.html">
+            
+                    
+                    Version 1.x
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3" data-path="Version_2.x.html">
+            
+                <a href="Version_2.x.html">
+            
+                    
+                    Version 2.x
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Version 2.x</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="usage">Usage</h2>
+<p><code>npm install gulp-release-it --save-dev</code></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> gulp <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;gulp&apos;</span>;
+<span class="hljs-keyword">import</span> {release} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;gulp-release-it&apos;</span>;
+
+release(gulp);
+</code></pre>
+<h2 id="how-release-works">How release works</h2>
+<h3 id="first-approach-gulp-complete-release">First approach <code>gulp complete-release</code></h3>
+<ol>
+<li>Creates a tag based on <em>current</em> version specified in package.json</li>
+<li>Publishes the project to Git repository </li>
+<li>Bumps the version of package.json, bower.json or/and manifest.json</li>
+</ol>
+<p>So if you have package.json with version v1.0.0 and do <code>gulp release</code> 
+you will have in GitH tag v1.0.0, the same in NPM Repo and your package.json 
+will be bumped up to version v1.0.1 (future release version) and committed to Git</p>
+<h3 id="second-approach-gulp-bump-complete-release">Second approach <code>gulp bump-complete-release</code></h3>
+<ol>
+<li>Bumps the version of package.json, bower.json or/and manifest.json</li>
+<li>Creates a tag based on <em>current</em> version specified in package.json</li>
+<li>Publishes the project to Git repository </li>
+</ol>
+<p>So if you have package.json with version v1.0.0 and do <code>gulp bump-release</code> 
+your package.json will be bumped up and committed to Git to v1.0.1 (last released version) 
+and you will have in Git tag v1.0.1, the same in NPM Repo.</p>
+<p>The big difference between two approaches is in - what do you want to save in your configuration file -
+the last released version or the future version. The most suitable case you can choose by yourself.</p>
+<h2 id="how-is-bumping-works">How is bumping works</h2>
+<p>Currently the plugin watches 3 files to bump up - bower.json, package.json and manifest.json.
+To keep all of them in sync (even if you have in your current repository state different versions),
+plugin fetches the version of package.json, bumps it and applies the same version to other files.
+It can be very handy, especially if somebody from the team decided to update manually one of the files but 
+forgot to do it for another files too.</p>
+<p>As an additional check, plugin checks which tags are already existed. If you for example have a stale code with 
+version &quot;1.0.1&quot; and real version is already &quot;1.0.4&quot; and in between released were already made (1.0.2, 1.0.3, 1.0.4). 
+The check would be performed and instead of failing that v1.0.2 tag already existed, version would be bumped up to
+1.0.5. This strategy is applied to all kind of bumping: minor, major, alpha, etc.</p>
+<h2 id="how-to-publish-and-bump-to-a-new-version">How to publish and bump to a new version</h2>
+<p><code>gulp complete-release</code> # publish to NPM repo and Git</p>
+<p><code>gulp release</code> # publish to Git</p>
+<h2 id="how-to-bump--to-a-new-version-and-then-release">How to bump  to a new version and then release</h2>
+<p><code>gulp bump-complete-release</code> # publish to NPM repo and Git</p>
+<p><code>gulp bump-release</code> # publish to Git</p>
+<h2 id="different-ways-to-bump-the-version-after-release">Different ways to bump the version after release</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gulp release</td>
+<td>v0.0.1 -&gt; v0.0.2 </td>
+</tr>
+<tr>
+<td>gulp release --minor</td>
+<td>v0.0.1 -&gt; v0.1.0 </td>
+</tr>
+<tr>
+<td>gulp release --major</td>
+<td>v0.0.1 -&gt; v1.0.0</td>
+</tr>
+<tr>
+<td>gulp release --alpha</td>
+<td>v0.0.1 -&gt; v0.0.1-alpha.0</td>
+</tr>
+<tr>
+<td>gulp release --beta</td>
+<td>v0.0.1 -&gt; v0.0.1-beta.0</td>
+</tr>
+<tr>
+<td>gulp release --RC</td>
+<td>v0.0.1 -&gt; v0.0.1-RC.0</td>
+</tr>
+<tr>
+<td>gulp release --pre-release gamma</td>
+<td>v0.0.1 -&gt; v0.0.1-gamma.0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="if-you-want-only-to-bump-the-version">If you want only to bump the version</h3>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gulp bump</td>
+<td>v0.0.1 -&gt; v0.0.2 </td>
+</tr>
+<tr>
+<td>gulp bump --minor</td>
+<td>v0.0.1 -&gt; v0.1.0 </td>
+</tr>
+<tr>
+<td>gulp bump --major</td>
+<td>v0.0.1 -&gt; v1.0.0</td>
+</tr>
+<tr>
+<td>gulp bump --alpha</td>
+<td>v0.0.1 -&gt; v0.0.1-alpha.0</td>
+</tr>
+<tr>
+<td>gulp bump --beta</td>
+<td>v0.0.1 -&gt; v0.0.1-beta.0</td>
+</tr>
+<tr>
+<td>gulp bump --RC</td>
+<td>v0.0.1 -&gt; v0.0.1-RC.0</td>
+</tr>
+<tr>
+<td>gulp bump --pre-release gamma</td>
+<td>v0.0.1 -&gt; v0.0.1-gamma.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-to-release-from-different-branch">How to release from different branch</h2>
+<p><code>gulp release --branch=branch_name</code></p>
+<h2 id="how-to-release-from-different-folder">How to release from different folder</h2>
+<p><code>gulp release --rootDir=/path/to/project</code></p>
+<h2 id="you-can-also-have-a-pre-hook-before-executing-tag-and-push-task">You can also have a pre-hook before executing tag-and-push task.</h2>
+<p>It can be helpful if you want to run some check first and only then release do a release.
+For a example it can be a check that you don&apos;t use any forbidden licenses.
+For that you need to do this:</p>
+<pre><code>    import util from &apos;util&apos;;
+    import gulp from &apos;gulp&apos;;
+    import {DefaultReleaseRegistry, release} from &apos;gulp-release-it&apos;;
+
+    class CustomGulpReleaseRegistry extends DefaultReleaseRegistry {
+        init(takerInst) {
+            takerInst.task(&apos;pre-tag-and-push&apos;, (cb) =&gt; {
+                console.log(&apos;i can override default task definition&apos;);
+                cb();
+            })
+        }
+    }
+
+    release(gulp, {before: [new CustomGulpReleaseRegistry()]});
+</code></pre><p>You can define your own registries with tasks and decide the way of priority how they will be added. 
+One way to define it before: </p>
+<pre><code>    release(gulp, {before: [new CustomGulpReleaseRegistry()]});
+</code></pre><p>another one after</p>
+<pre><code>    release(gulp, {after: [new CustomGulpReleaseRegistry()]});
+</code></pre><p>The difference is that last defined one wins. </p>
+<p>But be aware that if task was defined twice and you will call this task directly or as a dependency will make 
+a difference. So keeping that in mind you can create a proper strategy for your task graph (for example by preventing 
+inside of registry duplicated task, or remove previous task from registry and reapply the new one).</p>
+<p>You can follow for a more documentation how to work with registries here: <a href="https://github.com/gulpjs/undertaker-registry" target="_blank">https://github.com/gulpjs/undertaker-registry</a></p>
+<h3 id="short-description-of-registries">Short description of registries</h3>
+<table>
+<thead>
+<tr>
+<th>Registry name</th>
+<th>Tasks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DefaultBumpRegistry</td>
+<td>bump </td>
+</tr>
+<tr>
+<td>DefaultGitUtilsRegistry</td>
+<td>get-current-branch-name </td>
+</tr>
+<tr>
+<td>DefaultNpmPublishRegistry</td>
+<td>npm-publish</td>
+</tr>
+<tr>
+<td>DefaultPreTagAndPushRegistry</td>
+<td>pre-tag-and-push</td>
+</tr>
+<tr>
+<td>DefaultReleaseRegistry</td>
+<td>release, bump-release, complete-release, bump-complete-release</td>
+</tr>
+<tr>
+<td>DefaultTagAndPushRegistry</td>
+<td>tag-and-push</td>
+</tr>
+</tbody>
+</table>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Version_1.x.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Version 1.x">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Version 2.x","level":"1.3","depth":1,"previous":{"title":"Version 1.x","level":"1.2","depth":1,"path":"Version_1.x.md","ref":"Version_1.x.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Version_2.x.md","mtime":"2018-02-13T21:15:30.175Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-13T21:21:24.091Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
