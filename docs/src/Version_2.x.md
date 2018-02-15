@@ -10,7 +10,7 @@ release(gulp);
 
 ## Requirements
 
-It will work only with Gulp 4
+Gulp 4
 
 ## How release works
 

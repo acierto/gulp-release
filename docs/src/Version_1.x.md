@@ -9,7 +9,7 @@ require('gulp-release-it')(gulp);
 
 ## Requirements
 
-It will work only with Gulp 3
+Gulp 3
 
 ## How release works
 
