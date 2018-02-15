@@ -8,6 +8,10 @@ import {release} from 'gulp-release-it';
 release(gulp);
 ```
 
+## Requirements
+
+It will work only with Gulp 4
+
 ## How release works
 
 ### First approach ``` gulp complete-release```

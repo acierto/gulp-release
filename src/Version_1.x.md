@@ -7,6 +7,10 @@ var gulp = require('gulp');
 require('gulp-release-it')(gulp);
 ```
 
+## Requirements
+
+It will work only with Gulp 3
+
 ## How release works
 
 ### First approach ``` gulp complete-release```
