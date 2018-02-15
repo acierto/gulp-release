@@ -1835,7 +1835,7 @@ eslint-plugin-babel@4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-babel/-/eslint-plugin-babel-4.1.2.tgz#79202a0e35757dd92780919b2336f1fa2fe53c1e"
 
-eslint-plugin-import@^2.8.0:
+eslint-plugin-import@2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.8.0.tgz#fa1b6ef31fcb3c501c09859c1b86f1fc5b986894"
   dependencies:
@@ -2489,7 +2489,7 @@ gitbook-plugin-theme-default@1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/gitbook-plugin-theme-default/-/gitbook-plugin-theme-default-1.0.7.tgz#51f71fbca74a261054e9e9d141c42167afefce88"
 
-gitbook@^3.2.3:
+gitbook@3.2.3:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/gitbook/-/gitbook-3.2.3.tgz#8c3043df0589e6f328f49c043002de56f3bc2046"
   dependencies:
@@ -2747,7 +2747,7 @@ gulp-cli@^2.0.0:
     v8flags "^3.0.1"
     yargs "^7.1.0"
 
-gulp-eslint@^4.0.2:
+gulp-eslint@4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/gulp-eslint/-/gulp-eslint-4.0.2.tgz#18a2a6768e4404cbf3e203239cb57474168fa606"
   dependencies:
@@ -2755,7 +2755,7 @@ gulp-eslint@^4.0.2:
     fancy-log "^1.3.2"
     plugin-error "^1.0.0"
 
-gulp-gh-pages@^0.5.4:
+gulp-gh-pages@0.5.4:
   version "0.5.4"
   resolved "https://registry.yarnpkg.com/gulp-gh-pages/-/gulp-gh-pages-0.5.4.tgz#a6732ca475ab9b5a53253c1c24734c40c21b6546"
   dependencies:
@@ -2779,7 +2779,7 @@ gulp-git@2.5.1:
     through2 "^2.0.3"
     vinyl "^2.0.1"
 
-gulp-gitbook@^0.0.2:
+gulp-gitbook@0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/gulp-gitbook/-/gulp-gitbook-0.0.2.tgz#34d6927bf67ab5f7fe5c66f6a9df7abe14e18a53"
   dependencies:
@@ -6169,7 +6169,7 @@ underscore@1.x.x:
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
 
-undertaker-registry@^1.0.0, undertaker-registry@^1.0.1:
+undertaker-registry@1.0.1, undertaker-registry@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/undertaker-registry/-/undertaker-registry-1.0.1.tgz#5e4bda308e4a8a2ae584f9b9a4359a499825cc50"
 
