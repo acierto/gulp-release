@@ -101,7 +101,7 @@ It can be helpful if you want to run some check first and only then release do a
 For a example it can be a check that you don't use any forbidden licenses.
 For that you need to do this:
 
-```
+```javascript
     import util from 'util';
     import gulp from 'gulp';
     import {DefaultReleaseRegistry, release} from 'gulp-release-it';
@@ -122,13 +122,13 @@ For that you need to do this:
 You can define your own registries with tasks and decide the way of priority how they will be added. 
 One way to define it before: 
 
-```
+```javascript
     release(gulp, {before: [new CustomGulpReleaseRegistry()]});
 ```
 
 another one after
 
-```
+```javascript
     release(gulp, {after: [new CustomGulpReleaseRegistry()]});
 ```
 

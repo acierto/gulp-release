@@ -303,26 +303,29 @@ The check would be performed and instead of failing that v1.0.2 tag already exis
 <p>It can be helpful if you want to run some check first and only then release do a release.
 For a example it can be a check that you don&apos;t use any forbidden licenses.
 For that you need to do this:</p>
-<pre><code>    import util from &apos;util&apos;;
-    import gulp from &apos;gulp&apos;;
-    import {DefaultReleaseRegistry, release} from &apos;gulp-release-it&apos;;
+<pre><code class="lang-javascript">    <span class="hljs-keyword">import</span> util <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;util&apos;</span>;
+    <span class="hljs-keyword">import</span> gulp <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;gulp&apos;</span>;
+    <span class="hljs-keyword">import</span> {DefaultReleaseRegistry, release} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;gulp-release-it&apos;</span>;
 
-    class CustomGulpReleaseRegistry extends DefaultReleaseRegistry {
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomGulpReleaseRegistry</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DefaultReleaseRegistry</span> </span>{
         init(takerInst) {
-            takerInst.task(&apos;pre-tag-and-push&apos;, (cb) =&gt; {
-                console.log(&apos;i can override default task definition&apos;);
+            takerInst.task(<span class="hljs-string">&apos;pre-tag-and-push&apos;</span>, (cb) =&gt; {
+                <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;i can override default task definition&apos;</span>);
                 cb();
             })
         }
     }
 
-    release(gulp, {before: [new CustomGulpReleaseRegistry()]});
-</code></pre><p>You can define your own registries with tasks and decide the way of priority how they will be added. 
+    release(gulp, {before: [<span class="hljs-keyword">new</span> CustomGulpReleaseRegistry()]});
+</code></pre>
+<p>You can define your own registries with tasks and decide the way of priority how they will be added. 
 One way to define it before: </p>
-<pre><code>    release(gulp, {before: [new CustomGulpReleaseRegistry()]});
-</code></pre><p>another one after</p>
-<pre><code>    release(gulp, {after: [new CustomGulpReleaseRegistry()]});
-</code></pre><p>The difference is that last defined one wins. </p>
+<pre><code class="lang-javascript">    release(gulp, {before: [<span class="hljs-keyword">new</span> CustomGulpReleaseRegistry()]});
+</code></pre>
+<p>another one after</p>
+<pre><code class="lang-javascript">    release(gulp, {after: [<span class="hljs-keyword">new</span> CustomGulpReleaseRegistry()]});
+</code></pre>
+<p>The difference is that last defined one wins. </p>
 <p>But be aware that if task was defined twice and you will call this task directly or as a dependency will make 
 a difference. So keeping that in mind you can create a proper strategy for your task graph (for example by preventing 
 inside of registry duplicated task, or remove previous task from registry and reapply the new one).</p>
@@ -401,7 +404,7 @@ inside of registry duplicated task, or remove previous task from registry and re
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Version 2.x","level":"1.3","depth":1,"previous":{"title":"Version 1.x","level":"1.2","depth":1,"path":"Version_1.x.md","ref":"Version_1.x.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Version_2.x.md","mtime":"2018-02-15T21:00:47.723Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-15T21:01:07.131Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Version 2.x","level":"1.3","depth":1,"previous":{"title":"Version 1.x","level":"1.2","depth":1,"path":"Version_1.x.md","ref":"Version_1.x.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Version_2.x.md","mtime":"2018-02-17T15:05:34.414Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-17T15:06:06.524Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
