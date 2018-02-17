@@ -95,7 +95,7 @@ It can be helpful if you want to run some check first and only then release do a
 For a example it can be a check that you don't use any forbidden licenses.
 For that you need to do this:
 
-```
+```javascript
     import gulp from 'gulp';
     import initReleaseIt from 'gulp-release-it';
     
