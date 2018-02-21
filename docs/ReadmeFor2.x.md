@@ -98,7 +98,6 @@ For a example it can be a check that you don't use any forbidden licenses.
 For that you need to do this:
 
 ```
-    import util from 'util';
     import gulp from 'gulp';
     import {DefaultReleaseRegistry, release} from 'gulp-release-it';
     
