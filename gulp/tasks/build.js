@@ -3,6 +3,6 @@ import gulp from 'gulp';
 
 gulp.task('build', gulp.series('lint', () =>
     gulp.src('lib/**')
-        .pipe(babel({presets: ['es2015']}))
+        .pipe(babel({presets: ['env']}))
         .pipe(gulp.dest('dist'))
 ));
