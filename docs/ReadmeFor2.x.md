@@ -85,7 +85,7 @@ gulp bump --pre-release gamma        | v0.0.1 -> v0.0.1-gamma.0
  
 ## How to release from different branch
  
-```gulp release --branch=branch_name```
+```gulp release --releaseBranch=branch_name```
 
 ## How to release from different folder
 

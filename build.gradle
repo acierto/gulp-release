@@ -1,0 +1,50 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        ["releases", "public"].each { r ->
+            maven {
+                url "${nexusBaseUrl}/repositories/${r}"
+                credentials {
+                    username nexusUserName
+                    password nexusPassword
+                }
+            }
+        }
+    }
+
+    dependencies {
+        classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'com.moowork.gulp'
+
+task createBuildDir {
+    doLast {
+        if (!buildDir.exists()) {
+            buildDir.mkdir()
+        }
+    }
+}
+
+task gulpBuild(type: GulpTask) {
+    args = ["build"]
+}
+
+task gulpBumpRelease(type: GulpTask) {
+    args = ["bump-release"]
+}
+
+yarn_install {
+    args = ['--mutex', 'network']
+}
+
+node {
+    version = '9.0.0'
+    yarnVersion = '1.14.0'
+    download = true
+}

@@ -1,5 +1,5 @@
-import {DefaultReleaseRegistry, release} from '../../lib/main';
 import gulp from 'gulp';
+import {DefaultReleaseRegistry, release} from '../../lib/main';
 
 class CustomGulpReleaseRegistry extends DefaultReleaseRegistry {
     init(takerInst) {
