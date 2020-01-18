@@ -29,5 +29,8 @@
     "gulp-gh-pages": "0.5.4",
     "gulp-gitbook": "0.0.2"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "resolutions": {
+    "upath": "1.2.0"
+  }
 }
