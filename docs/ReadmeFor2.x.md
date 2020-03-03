@@ -91,11 +91,10 @@ gulp bump --pre-release gamma        | v0.0.1 -> v0.0.1-gamma.0
 
 ```gulp release --rootDir=/path/to/project```
 
-## You can also have a pre-hook before executing tag-and-push task.
+## How to verify certain preconditions before doing a release.
 
-It can be helpful if you want to run some check first and only then release do a release.
-For a example it can be a check that you don't use any forbidden licenses.
-For that you need to do this:
+That can be a good idea for example in case when you need to verify that a supplied release 
+doesn't include any forbidden licenses. For that consider doing the next:
 
 ```
     import gulp from 'gulp';
@@ -129,11 +128,12 @@ another one after
 
 The difference is that last defined one wins. 
 
-But be aware that if task was defined twice and you will call this task directly or as a dependency will make 
-a difference. So keeping that in mind you can create a proper strategy for your task graph (for example by preventing 
-inside of registry duplicated task, or remove previous task from registry and reapply the new one).
+But be aware, that in case when the task is defined twice, direct invocation or invocation as a dependency from 
+another makes a difference. So keeping that in mind, you can create a proper strategy for your task graph (for
+ example by preventing inside of registry a duplicated task or by removing a previous task from registry and 
+ reapplying a new one).
 
-You can follow for a more documentation how to work with registries here: https://github.com/gulpjs/undertaker-registry
+More information how to work with registries: https://github.com/gulpjs/undertaker-registry
 
 ### Short description of registries
 
