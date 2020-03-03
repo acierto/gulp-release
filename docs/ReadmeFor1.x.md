@@ -85,11 +85,10 @@ gulp bump --pre-release gamma        | v0.0.1 -> v0.0.1-gamma.0
 
 ```gulp release --rootDir=/path/to/project```
 
-## You can also have a pre-hook before executing tag-and-push task.
+## How to verify certain preconditions before doing a release.
 
-It can be helpful if you want to run some check first and only then release do a release.
-For a example it can be a check that you don't use any forbidden licenses.
-For that you need to do this:
+That can be a good idea for example in case when you need to verify that a supplied release 
+doesn't include any forbidden licenses. For that consider doing the next:
 
 ```
     import gulp from 'gulp';
@@ -107,8 +106,7 @@ For that you need to do this:
     });
 ```
 
-What is happening here actually, by means of plugin `gulp-appfy-tasks` we
-override default `pre-tag-and-push` task which by default does nothing. 
-`pre-tag-and-push` task triggers every time before executing `tag-and-push`
-task. 
+With help of `gulp-appfy-tasks`, the default task `pre-tag-and-push` is overridden. 
+This task is included to a plugin and works as a placeholder and executed every time before `tag-and-push`.
+
   
