@@ -1,7 +1,7 @@
 buildscript {
     repositories {
         mavenLocal()
-        ["releases", "public"].each { r ->
+        ['releases', 'public'].each { r ->
             maven {
                 url "${nexusBaseUrl}/repositories/${r}"
                 credentials {
@@ -13,15 +13,15 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
-        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
+        classpath 'com.github.node-gradle:gradle-node-plugin:2.2.0'
+        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2'
     }
 }
 
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'com.moowork.gulp'
+apply plugin: 'com.github.node-gradle.node'
 
 task createBuildDir {
     doLast {
@@ -31,12 +31,12 @@ task createBuildDir {
     }
 }
 
-task gulpBuild(type: GulpTask) {
-    args = ["build"]
+task gulpBuild(type: YarnTask) {
+    args = ['gulp', 'build']
 }
 
-task gulpBumpRelease(type: GulpTask) {
-    args = ["bump-release"]
+task gulpBumpRelease(type: YarnTask) {
+    args = ['gulp', 'bump-release']
 }
 
 yarn_install {
@@ -44,7 +44,7 @@ yarn_install {
 }
 
 node {
-    version = '9.0.0'
-    yarnVersion = '1.14.0'
+    version = '13.9.0'
+    yarnVersion = '1.22.0'
     download = true
 }
