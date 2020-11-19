@@ -3,7 +3,7 @@
   "description": "Gulp plugin for automating release steps of your node lib or bower component and publishing to NPM",
   "author": "Bogdan Nechyporenko",
   "repository": "git@github.com:acierto/gulp-release.git",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "main": "dist/main.js",
   "dependencies": {
     "ansi-colors": "4.1.1",
